@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariano Refrigeração - Sistema de Gestão</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <i data-lucide="snowflake"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Mariano</h1>
+                    <span>Refrigeração</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="clientes">
+                    <i data-lucide="users"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="#" class="nav-item" data-page="ordens">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Ordens de Serviço</span>
+                </a>
+                <a href="#" class="nav-item" data-page="produtos">
+                    <i data-lucide="package"></i>
+                    <span>Produtos</span>
+                </a>
+                <a href="#" class="nav-item" data-page="vendas">
+                    <i data-lucide="shopping-cart"></i>
+                    <span>Vendas</span>
+                </a>
+                <a href="#" class="nav-item" data-page="relatorios">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Relatórios</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="collapse-btn" id="collapseBtn">
+                    <i data-lucide="chevron-left"></i>
+                    <span>Recolher</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div class="page active" id="page-dashboard">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Dashboard</h1>
+                        <p class="page-subtitle">Visão geral do sistema Mariano Refrigeração</p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">OS Abertas</p>
+                            <p class="stat-value" id="stat-os-abertas">0</p>
+                            <p class="stat-description">Aguardando atendimento</p>
+                        </div>
+                        <div class="stat-icon warning">
+                            <i data-lucide="clipboard-list"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">OS Finalizadas</p>
+                            <p class="stat-value" id="stat-os-finalizadas">0</p>
+                            <p class="stat-description">Este mês</p>
+                        </div>
+                        <div class="stat-icon success">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Total de Clientes</p>
+                            <p class="stat-value" id="stat-clientes">0</p>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i data-lucide="users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Vendas do Mês</p>
+                            <p class="stat-value" id="stat-vendas">R$ 0,00</p>
+                        </div>
+                        <div class="stat-icon success">
+                            <i data-lucide="dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Produtos em Estoque</p>
+                            <p class="stat-value" id="stat-produtos">0</p>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i data-lucide="package"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Técnicos Ativos</p>
+                            <p class="stat-value" id="stat-tecnicos">0</p>
+                        </div>
+                        <div class="stat-icon info">
+                            <i data-lucide="wrench"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Em Manutenção</p>
+                            <p class="stat-value" id="stat-manutencao">0</p>
+                            <p class="stat-description">Equipamentos ativos</p>
+                        </div>
+                        <div class="stat-icon warning">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Estoque Baixo</p>
+                            <p class="stat-value" id="stat-estoque-baixo">0</p>
+                            <p class="stat-description">Produtos abaixo do mínimo</p>
+                        </div>
+                        <div class="stat-icon" id="stat-estoque-icon">
+                            <i data-lucide="alert-triangle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Status das Ordens de Serviço</h3>
+                        <div class="chart-container">
+                            <canvas id="osStatusChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Ordens de Serviço Recentes</h3>
+                        <div class="table-container" id="recent-os-table">
+                            <p class="empty-message">Nenhuma OS cadastrada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Stock Alert -->
+                <div class="alert-card hidden" id="low-stock-alert">
+                    <div class="alert-header">
+                        <i data-lucide="alert-triangle"></i>
+                        <h3>Alerta de Estoque Baixo</h3>
+                    </div>
+                    <div class="table-container" id="low-stock-table"></div>
+                </div>
+            </div>
+
+            <!-- Clientes Page -->
+            <div class="page" id="page-clientes">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Clientes</h1>
+                        <p class="page-subtitle">Gerencie os clientes cadastrados</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openClienteModal()">
+                        <i data-lucide="plus"></i>
+                        Novo Cliente
+                    </button>
+                </div>
+
+                <div class="search-bar">
+                    <div class="search-input">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="search-clientes" placeholder="Buscar por nome, telefone ou email...">
+                    </div>
+                </div>
+
+                <div class="table-container" id="clientes-table">
+                    <p class="empty-message">Nenhum cliente encontrado</p>
+                </div>
+            </div>
+
+            <!-- Ordens de Serviço Page -->
+            <div class="page" id="page-ordens">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Ordens de Serviço</h1>
+                        <p class="page-subtitle">Gerencie as ordens de serviço</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openOrdemModal()">
+                        <i data-lucide="plus"></i>
+                        Nova OS
+                    </button>
+                </div>
+
+                <div class="filters-bar">
+                    <div class="search-input">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="search-ordens" placeholder="Buscar por equipamento...">
+                    </div>
+                    <select id="filter-status" class="select-input">
+                        <option value="all">Todos os Status</option>
+                        <option value="aberta">Aberta</option>
+                        <option value="em_andamento">Em Andamento</option>
+                        <option value="finalizada">Finalizada</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
+                    <select id="filter-prioridade" class="select-input">
+                        <option value="all">Todas Prioridades</option>
+                        <option value="baixa">Baixa</option>
+                        <option value="media">Média</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+
+                <div class="table-container" id="ordens-table">
+                    <p class="empty-message">Nenhuma ordem de serviço encontrada</p>
+                </div>
+            </div>
+
+            <!-- Produtos Page -->
+            <div class="page" id="page-produtos">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Produtos</h1>
+                        <p class="page-subtitle">Gerencie o estoque de produtos</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProdutoModal()">
+                        <i data-lucide="plus"></i>
+                        Novo Produto
+                    </button>
+                </div>
+
+                <div class="alert-inline hidden" id="produtos-low-stock-alert">
+                    <i data-lucide="alert-triangle"></i>
+                    <p><strong id="low-stock-count">0</strong> produto(s) com estoque abaixo do mínimo</p>
+                </div>
+
+                <div class="search-bar">
+                    <div class="search-input">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="search-produtos" placeholder="Buscar por nome ou código...">
+                    </div>
+                </div>
+
+                <div class="table-container" id="produtos-table">
+                    <p class="empty-message">Nenhum produto encontrado</p>
+                </div>
+            </div>
+
+            <!-- Vendas Page -->
+            <div class="page" id="page-vendas">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Vendas</h1>
+                        <p class="page-subtitle">Realize vendas e controle o estoque</p>
+                    </div>
+                </div>
+
+                <div class="vendas-grid">
+                    <div class="vendas-produtos">
+                        <div class="card">
+                            <input type="text" id="search-vendas-produtos" class="input" placeholder="Buscar produtos...">
+                            <div class="produtos-grid" id="vendas-produtos-grid">
+                                <p class="empty-message">Nenhum produto disponível</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vendas-carrinho">
+                        <div class="card">
+                            <div class="carrinho-header">
+                                <i data-lucide="shopping-cart"></i>
+                                <h3>Carrinho</h3>
+                                <span class="carrinho-count" id="carrinho-count">0</span>
+                            </div>
+                            <div class="carrinho-items" id="carrinho-items">
+                                <p class="empty-message">Carrinho vazio</p>
+                            </div>
+                            <div class="carrinho-total">
+                                <span>Total:</span>
+                                <span class="total-value" id="carrinho-total">R$ 0,00</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="form-group">
+                                <label>Cliente (opcional)</label>
+                                <select id="venda-cliente" class="select-input">
+                                    <option value="">Selecione um cliente</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de Pagamento</label>
+                                <div class="payment-options">
+                                    <button class="payment-btn active" data-method="dinheiro">
+                                        <i data-lucide="banknote"></i>
+                                        Dinheiro
+                                    </button>
+                                    <button class="payment-btn" data-method="cartao_debito">
+                                        <i data-lucide="credit-card"></i>
+                                        Débito
+                                    </button>
+                                    <button class="payment-btn" data-method="cartao_credito">
+                                        <i data-lucide="credit-card"></i>
+                                        Crédito
+                                    </button>
+                                    <button class="payment-btn" data-method="pix">
+                                        <i data-lucide="smartphone"></i>
+                                        PIX
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-full" onclick="finalizarVenda()">
+                                <i data-lucide="receipt"></i>
+                                Finalizar Venda
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relatórios Page -->
+            <div class="page" id="page-relatorios">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Relatórios</h1>
+                        <p class="page-subtitle">Análise de vendas, serviços e estoque</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="filters-bar">
+                        <div class="form-group">
+                            <label>Data Inicial</label>
+                            <input type="date" id="relatorio-data-inicio" class="input">
+                        </div>
+                        <div class="form-group">
+                            <label>Data Final</label>
+                            <input type="date" id="relatorio-data-fim" class="input">
+                        </div>
+                        <button class="btn btn-outline" onclick="carregarRelatorios()">
+                            <i data-lucide="calendar"></i>
+                            Aplicar Filtro
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-grid stats-3">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Total Vendas</p>
+                            <p class="stat-value" id="rel-total-vendas">R$ 0,00</p>
+                            <p class="stat-description" id="rel-qtd-vendas">0 vendas no período</p>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Serviços Finalizados</p>
+                            <p class="stat-value" id="rel-total-os">R$ 0,00</p>
+                            <p class="stat-description" id="rel-qtd-os">0 OS no período</p>
+                        </div>
+                        <div class="stat-icon success">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <p class="stat-label">Receita Total</p>
+                            <p class="stat-value" id="rel-receita-total">R$ 0,00</p>
+                            <p class="stat-description">Vendas + Serviços</p>
+                        </div>
+                        <div class="stat-icon info">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Vendas por Dia</h3>
+                        <div class="chart-container">
+                            <canvas id="vendasDiaChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Produtos Mais Vendidos</h3>
+                        <div class="chart-container">
+                            <canvas id="produtosVendidosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="rel-vendas">Vendas</button>
+                        <button class="tab" data-tab="rel-os">Ordens de Serviço</button>
+                    </div>
+                    <div class="tab-content active" id="tab-rel-vendas">
+                        <div class="table-actions">
+                            <button class="btn btn-outline" onclick="exportarCSV('vendas')">
+                                <i data-lucide="download"></i>
+                                Exportar CSV
+                            </button>
+                        </div>
+                        <div class="table-container" id="relatorio-vendas-table">
+                            <p class="empty-message">Nenhuma venda no período</p>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-rel-os">
+                        <div class="table-actions">
+                            <button class="btn btn-outline" onclick="exportarCSV('os')">
+                                <i data-lucide="download"></i>
+                                Exportar CSV
+                            </button>
+                        </div>
+                        <div class="table-container" id="relatorio-os-table">
+                            <p class="empty-message">Nenhuma OS finalizada no período</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Cliente -->
+    <div class="modal" id="modal-cliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-cliente-title">Novo Cliente</h2>
+                <button class="modal-close" onclick="closeModal('modal-cliente')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="form-cliente" onsubmit="salvarCliente(event)">
+                <input type="hidden" id="cliente-id">
+                <div class="form-group">
+                    <label>Nome *</label>
+                    <input type="text" id="cliente-nome" class="input" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone *</label>
+                    <input type="text" id="cliente-telefone" class="input" placeholder="(00) 00000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="cliente-email" class="input" placeholder="email@exemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>Endereço</label>
+                    <input type="text" id="cliente-endereco" class="input" placeholder="Rua, número, bairro, cidade">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-cliente')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-cliente">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ordem de Serviço -->
+    <div class="modal" id="modal-ordem">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2 id="modal-ordem-title">Nova Ordem de Serviço</h2>
+                <button class="modal-close" onclick="closeModal('modal-ordem')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="form-ordem" onsubmit="salvarOrdem(event)">
+                <input type="hidden" id="ordem-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cliente *</label>
+                        <select id="ordem-cliente" class="select-input" required>
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Técnico *</label>
+                        <select id="ordem-tecnico" class="select-input" required>
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Equipamento *</label>
+                    <input type="text" id="ordem-equipamento" class="input" placeholder="Ex: Ar Condicionado Split 12000 BTUs" required>
+                </div>
+                <div class="form-group">
+                    <label>Descrição do Problema</label>
+                    <textarea id="ordem-descricao" class="textarea" placeholder="Descreva o problema relatado..." rows="3"></textarea>
+                </div>
+                <div class="form-row form-row-3">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="ordem-status" class="select-input">
+                            <option value="aberta">Aberta</option>
+                            <option value="em_andamento">Em Andamento</option>
+                            <option value="finalizada">Finalizada</option>
+                            <option value="cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioridade</label>
+                        <select id="ordem-prioridade" class="select-input">
+                            <option value="baixa">Baixa</option>
+                            <option value="media" selected>Média</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Valor (R$)</label>
+                        <input type="number" id="ordem-valor" class="input" step="0.01" min="0" placeholder="0,00">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-ordem')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-ordem">Criar OS</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Produto -->
+    <div class="modal" id="modal-produto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-produto-title">Novo Produto</h2>
+                <button class="modal-close" onclick="closeModal('modal-produto')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="form-produto" onsubmit="salvarProduto(event)">
+                <input type="hidden" id="produto-id">
+                <div class="form-group">
+                    <label>Nome *</label>
+                    <input type="text" id="produto-nome" class="input" placeholder="Nome do produto" required>
+                </div>
+                <div class="form-group">
+                    <label>Código *</label>
+                    <input type="text" id="produto-codigo" class="input" placeholder="Código do produto" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantidade em Estoque</label>
+                        <input type="number" id="produto-quantidade" class="input" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Estoque Mínimo</label>
+                        <input type="number" id="produto-minimo" class="input" min="0" value="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type="number" id="produto-preco" class="input" step="0.01" min="0" value="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-produto')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-produto">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes OS -->
+    <div class="modal" id="modal-os-detalhes">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-os-detalhes-title">Detalhes da OS</h2>
+                <button class="modal-close" onclick="closeModal('modal-os-detalhes')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="os-detalhes-content" id="os-detalhes-content"></div>
+        </div>
+    </div>
+
+    <!-- Modal Recibo -->
+    <div class="modal" id="modal-recibo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Comprovante de Venda</h2>
+                <button class="modal-close" onclick="closeModal('modal-recibo')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="recibo-content" id="recibo-content"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modal-recibo')">Fechar</button>
+                <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmação -->
+    <div class="modal" id="modal-confirm">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2>Confirmar exclusão</h2>
+                <button class="modal-close" onclick="closeModal('modal-confirm')">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <p class="confirm-message" id="confirm-message">Tem certeza que deseja excluir este item?</p>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modal-confirm')">Cancelar</button>
+                <button class="btn btn-danger" id="btn-confirm-delete">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
