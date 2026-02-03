@@ -11,9 +11,14 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
+
 <body>
-    <div class="app">
-        <!-- Sidebar -->
+
+ <!-------------------------------------------------------------- BARRA LATERAL ------------------------------------------------------------------------>
+    
+<div class="app">
+
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo-icon">
@@ -23,6 +28,7 @@
                     <h1>Mariano</h1>
                     <span>Refrigeração</span>
                 </div>
+
             </div>
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-page="dashboard">
@@ -58,6 +64,9 @@
             </div>
         </aside>
 
+
+<!----------------------------------------------------------------------- TELA DASHBOARD ------------------------------------------------------------------------------>
+
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard Page -->
@@ -69,7 +78,9 @@
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
+                <!---- PRIMEIRA BARRA DE STATUS EM CIMA ---->
+
+
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-content">
@@ -111,7 +122,8 @@
                     </div>
                 </div>
 
-                <!-- Secondary Stats -->
+                <!-------- SEGUNDA BARRA DE STATUS EM BAIXO ------------------>
+
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-content">
@@ -153,7 +165,8 @@
                     </div>
                 </div>
 
-                <!-- Charts -->
+                <!--------------------- CARDS DE GRAFICO DO DASHBOARD -------------------------------->
+
                 <div class="charts-grid">
                     <div class="chart-card">
                         <h3>Status das Ordens de Serviço</h3>
@@ -179,8 +192,10 @@
                 </div>
             </div>
 
-            <!-- Clientes Page -->
-            <div class="page" id="page-clientes">
+
+            <!---------------------------------------------------------------------------- PAGINA CLIENTES ------------------------------------------------------------------------------------------->
+           
+              <div class="page" id="page-clientes">
                 <div class="page-header">
                     <div>
                         <h1 class="page-title">Clientes</h1>
@@ -204,7 +219,8 @@
                 </div>
             </div>
 
-            <!-- Ordens de Serviço Page -->
+            <!-------------------------------------------------------------------------- PAGINA ORDENS DE SERVIÇO -------------------------------------------------------------------------------->
+            
             <div class="page" id="page-ordens">
                 <div class="page-header">
                     <div>
@@ -242,7 +258,8 @@
                 </div>
             </div>
 
-            <!-- Produtos Page -->
+            <!------------------------------------------------------------------------ PAGINA PRODUTOS --------------------------------------------------------------------------------------------------- -->
+
             <div class="page" id="page-produtos">
                 <div class="page-header">
                     <div>
@@ -272,7 +289,8 @@
                 </div>
             </div>
 
-            <!-- Vendas Page -->
+            <!------------------------------------------------------------------------------------- PAGINA DE VENDAS --------------------------------------------------------------------------------------->
+
             <div class="page" id="page-vendas">
                 <div class="page-header">
                     <div>
@@ -342,7 +360,8 @@
                 </div>
             </div>
 
-            <!-- Relatórios Page -->
+            <!------------------------------------------------------------------------------ PAGINA RELATORIOS  ------------------------------------------------------------------------------->
+
             <div class="page" id="page-relatorios">
                 <div class="page-header">
                     <div>
@@ -447,8 +466,12 @@
             </div>
         </main>
     </div>
+<!----------------------------------------------------------------------------- TELA DE POP UPS PARA FORMA DE CONFIRMAMENTO DA AÇÃO DE CADA PAGINA  ----------------------------------------------------------------->
+    
 
-    <!-- Modal Cliente -->
+               <!----------------------------------------------------------------- POP UP Cliente ------------------------------------------------------------------------->
+
+
     <div class="modal" id="modal-cliente">
         <div class="modal-content">
             <div class="modal-header">
@@ -483,7 +506,9 @@
         </div>
     </div>
 
-    <!-- Modal Ordem de Serviço -->
+    <!----------------------------------------------------------------------------------- POP UP Ordem de Serviço --------------------------------------------------------------->
+
+
     <div class="modal" id="modal-ordem">
         <div class="modal-content modal-lg">
             <div class="modal-header">
@@ -547,7 +572,9 @@
         </div>
     </div>
 
-    <!-- Modal Produto -->
+    <!----------------------------------------------------------------------------------------- POP UP Produto ------------------------------------------------->
+
+
     <div class="modal" id="modal-produto">
         <div class="modal-content">
             <div class="modal-header">
@@ -588,7 +615,9 @@
         </div>
     </div>
 
-    <!-- Modal Detalhes OS -->
+    <!---------------------------------------------------------------------------------------- Modal Detalhes OS -------------------------------------------------->
+
+
     <div class="modal" id="modal-os-detalhes">
         <div class="modal-content">
             <div class="modal-header">
@@ -601,7 +630,10 @@
         </div>
     </div>
 
-    <!-- Modal Recibo -->
+
+
+    <!-------------------------------------------------------------------------------------- POP UP Recibo POS VENDA CONFIRMADA ----------------------------------->
+
     <div class="modal" id="modal-recibo">
         <div class="modal-content">
             <div class="modal-header">
@@ -618,7 +650,8 @@
         </div>
     </div>
 
-    <!-- Modal Confirmação -->
+    <!--------------------------------------------------------------------------------------- POP UP Confirmação ---------------------------------------------------------->
+
     <div class="modal" id="modal-confirm">
         <div class="modal-content modal-sm">
             <div class="modal-header">
