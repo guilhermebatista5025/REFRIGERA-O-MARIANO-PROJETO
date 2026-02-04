@@ -1,3 +1,95 @@
+// ================= BACKEND API =================
+var API_URL = "http://localhost:3000/api";
+
+// ================= API HELPERS =================
+async function apiGet(endpoint) {
+  const res = await fetch(API_URL + "/" + endpoint);
+  return res.json();
+}
+
+async function apiPost(endpoint, data) {
+  const res = await fetch(API_URL + "/" + endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+async function apiPut(endpoint, data) {
+  const res = await fetch(API_URL + "/" + endpoint, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+async function apiDelete(endpoint) {
+  await fetch(API_URL + "/" + endpoint, { method: "DELETE" });
+  return true;
+}
+
+// ================= CLIENTES =================
+var clientesDB = {
+  getAll: async function () {
+    return apiGet("clientes");
+  },
+  add: async function (data) {
+    return apiPost("clientes", data);
+  },
+  update: async function (id, data) {
+    return apiPut("clientes/" + id, data);
+  },
+  delete: async function (id) {
+    return apiDelete("clientes/" + id);
+  }
+};
+
+// ================= PRODUTOS =================
+var produtosDB = {
+  getAll: async function () {
+    return apiGet("produtos");
+  },
+  add: async function (data) {
+    return apiPost("produtos", data);
+  },
+  update: async function (id, data) {
+    return apiPut("produtos/" + id, data);
+  },
+  delete: async function (id) {
+    return apiDelete("produtos/" + id);
+  }
+};
+
+// ================= ORDENS =================
+var ordensDB = {
+  getAll: async function () {
+    return apiGet("ordens");
+  },
+  add: async function (data) {
+    return apiPost("ordens", data);
+  },
+  update: async function (id, data) {
+    return apiPut("ordens/" + id, data);
+  },
+  delete: async function (id) {
+    return apiDelete("ordens/" + id);
+  }
+};
+
+// ================= VENDAS =================
+var vendasDB = {
+  getAll: async function () {
+    return apiGet("vendas");
+  },
+  add: async function (data) {
+    return apiPost("vendas", data);
+  }
+};
+
+
+
 // ===== MARIANO REFRIGERAÇÃO - SISTEMA DE GESTÃO =====
 // Arquivo: app.js
 // Sistema completo em JavaScript puro com localStorage
